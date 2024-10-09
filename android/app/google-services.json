@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "101972822228",
+    "project_id": "task2-pam",
+    "storage_bucket": "task2-pam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101972822228:android:a1fdd9c44ab1ffe949d341",
+        "android_client_info": {
+          "package_name": "com.pam.stopwatch_a"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWzaxTcDD3umV7QnL2Nsg41bniQvARsBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101972822228:android:3fcf8039662aec9f49d341",
+        "android_client_info": {
+          "package_name": "com.pam.stopwatch_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWzaxTcDD3umV7QnL2Nsg41bniQvARsBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
