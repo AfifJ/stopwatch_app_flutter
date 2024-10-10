@@ -31,7 +31,7 @@ class _SignInPageState extends State<SignInPage> {
                     _email = value;
                   });
                 },
-                decoration: InputDecoration(labelText: "email"),
+                decoration: const InputDecoration(labelText: "email"),
               ),
               TextFormField(
                 onChanged: (value) {
@@ -39,13 +39,14 @@ class _SignInPageState extends State<SignInPage> {
                     _password = value;
                   });
                 },
-                decoration: InputDecoration(labelText: "password"),
+                decoration: const InputDecoration(labelText: "password"),
               ),
               ElevatedButton(
                   onPressed: () async {
+                    print("logging in");
                     await _auth.signIn(_email, _password);
                   },
-                  child: Text("Sign in"))
+                  child: const Text("Sign in"))
             ],
           ),
         ),

@@ -13,6 +13,10 @@ class AuthPage extends StatelessWidget {
     return StreamBuilder(
         stream: _auth.authStateChanges(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+
           if (snapshot.hasData) {
             return Home();
           } else {

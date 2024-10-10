@@ -5,20 +5,34 @@ class AuthService {
   final _auth = FirebaseAuth.instance;
 
   UserModel firebaseToUserModel(User user) {
-    return UserModel(username: user.uid, uid: user.uid);
+    return UserModel(username: user.uid, uid: user.uid, email: user.email!);
   }
 
   Future? signIn(String email, String password) async {
     try {
       UserCredential? user = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      if (user.user != null) {
-        return firebaseToUserModel(user.user!);
-      }
+      return firebaseToUserModel(user.user!);
     } on FirebaseAuthException catch (e) {
+      print('gagal login');
       print(e.code);
+      return null;
     }
-    print('gagal login');
-    return null;
+  }
+
+  Future signOut() async {
+    try {
+      return await _auth.signOut();
+    } on FirebaseAuthException catch (e) {
+      return e.code;
+    }
+  }
+
+  Stream authStateChanges() {
+    return _auth.authStateChanges();
+  }
+
+  UserModel currentUser() {
+    return firebaseToUserModel(_auth.currentUser!);
   }
 }
