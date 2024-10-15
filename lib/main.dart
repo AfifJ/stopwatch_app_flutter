@@ -16,9 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter test',
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.black,
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.white)),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
