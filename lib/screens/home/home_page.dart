@@ -5,8 +5,15 @@ import 'package:stopwatch_app/screens/rekomendasi/rekomendasi_page.dart';
 import 'package:stopwatch_app/screens/stopwatch/stopwatch_page.dart';
 import 'package:stopwatch_app/services/auth.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
 
   final listMenu = [
     {'title': 'Daftar anggota', 'menu': AnggotaPage()},
@@ -22,18 +29,13 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final _auth = AuthService();
     final user = _auth.currentUser();
-    return Scaffold(
-      body: Center(
+
+    List<Widget> _widgetOptions = <Widget>[
+      Center(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Logged in as ${user.email}"),
-            MaterialButton(
-              onPressed: () async {
-                await _auth.signOut();
-              },
-              child: Text("Log out"),
-            ),
             Expanded(
               child: ListView.builder(
                   itemCount: listMenu.length,
@@ -51,9 +53,36 @@ class Home extends StatelessWidget {
                               child: Text(listMenu[index]['title'] as String),
                             )));
                   }),
-            )
+            ),
           ],
         ),
+      ),
+      Center(
+        child: MaterialButton(
+          onPressed: () async {
+            await _auth.signOut();
+          },
+          child: Text("Log out"),
+        ),
+      )
+    ];
+
+    void _onTappedItem(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+
+    return Scaffold(
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: NavigationBar(
+        destinations: [
+          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+          NavigationDestination(icon: Icon(Icons.help), label: "Help")
+        ],
+        onDestinationSelected: _onTappedItem,
+        selectedIndex: _selectedIndex,
+        indicatorColor: Colors.orange,
       ),
     );
   }

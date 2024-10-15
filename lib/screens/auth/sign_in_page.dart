@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stopwatch_app/screens/auth/sign_up_page.dart';
+// import 'package:stopwatch_app/screens/auth/sign_up_page.dart';
 import 'package:stopwatch_app/services/auth.dart';
 
 class SignInPage extends StatefulWidget {
@@ -46,7 +48,23 @@ class _SignInPageState extends State<SignInPage> {
                     print("logging in");
                     await _auth.signIn(_email, _password);
                   },
-                  child: const Text("Sign in"))
+                  child: const Text("Sign in")),
+              Row(
+                children: [
+                  Text(
+                    "Tidak punya akun?",
+                    textAlign: TextAlign.start,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const SignUpPage();
+                        }));
+                      },
+                      child: const Text("Sign Up"))
+                ],
+              )
             ],
           ),
         ),

@@ -3,8 +3,8 @@ import 'package:stopwatch_app/screens/auth/sign_in_page.dart';
 import 'package:stopwatch_app/screens/home/home_page.dart';
 import 'package:stopwatch_app/services/auth.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class Wrapper extends StatelessWidget {
+  const Wrapper({super.key});
 
   @override
   Widget build(BuildContext context) {
