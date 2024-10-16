@@ -36,7 +36,8 @@ final List<Map<String, dynamic>> recomendationLinks = [
     'id': 6,
     'name': 'Golang',
     'link': 'https://go.dev/',
-    'image': 'https://go.dev/blog/go-brand/Go-Logo/PNG/Go-Logo_Blue.png',
+    'image':
+        'https://w7.pngwing.com/pngs/566/160/png-transparent-golang-hd-logo-thumbnail.png',
   },
   {
     'id': 7,
