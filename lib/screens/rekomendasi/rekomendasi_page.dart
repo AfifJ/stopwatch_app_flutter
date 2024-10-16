@@ -19,10 +19,7 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
     final user = _auth.currentUser();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Link Rekomendasi',
-            style: TextStyle(
-              color: Colors.white,
-            )),
+        title: const Text('Link Rekomendasi'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -34,7 +31,6 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
           },
         ),
       ),
-      backgroundColor: Colors.black,
     );
   }
 
@@ -42,20 +38,25 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
       BuildContext context, Map<String, dynamic> item, dynamic user) {
     return Card(
       margin: const EdgeInsets.only(bottom: 10, top: 8),
-      elevation: 0,
-      color: Colors.black,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Image.network(
-              item['image'],
-              width: 50,
-              height: 50,
-              errorBuilder: (context, error, stackTrace) {
-                return const Text("Error",
-                    style: TextStyle(color: Colors.white));
-              },
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.network(
+                item['image'],
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error, color: Colors.red, size: 50);
+                },
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -63,10 +64,11 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(item['name'],
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 16)),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 5),
                   Text(item['link'],
-                      style: const TextStyle(color: Colors.white70)),
+                      style: const TextStyle(color: Colors.blue)),
                 ],
               ),
             ),
@@ -91,7 +93,7 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                   ),
                 ];
               },
-              icon: const Icon(Icons.more_horiz, color: Colors.white),
+              icon: const Icon(Icons.more_vert),
             ),
           ],
         ),
