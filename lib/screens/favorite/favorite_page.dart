@@ -116,7 +116,7 @@ class _FavoritePageState extends State<FavoritePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 24, top: 16, bottom: 16),
-                child: Text('Total favorites: ${favorites.length}'),
+                child: Text('${favorites.length} favorites'),
               ),
               Expanded(
                 child: ListView.builder(
@@ -130,14 +130,19 @@ class _FavoritePageState extends State<FavoritePage> {
                           width: 50,
                           height: 50,
                           errorBuilder: (context, error, stackTrace) {
-                            return const Text("Error");
+                            return const Icon(Icons.error,
+                                color: Colors.red, size: 50);
                           },
                         ),
                         title: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(favorite['name']),
-                            Text(favorite['link']),
+                            Text(favorite['name'],
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 5),
+                            Text(favorite['link'],
+                                style: const TextStyle(color: Colors.blue)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
