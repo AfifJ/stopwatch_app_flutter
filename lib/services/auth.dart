@@ -14,18 +14,39 @@ class AuthService {
           email: email, password: password);
       return firebaseToUserModel(user.user!);
     } on FirebaseAuthException catch (e) {
-      print('gagal login');
-      print(e.code);
-      return null;
+      print("GADA SINYAL" + e.code);
+      switch (e.code) {
+        case 'network-request-failed':
+          return 'Internet tidak tersedia, tidak bisa login';
+        case 'user-not-found':
+          return 'Email tidak ditemukan.';
+        case 'wrong-password':
+          return 'Password yang anda massukkan salah.';
+        case 'invalid-email':
+          return 'Email yang anda masukkan tidak valid.';
+        default:
+          return 'Email atau password salah.';
+      }
     }
   }
 
   Future? signUp(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      UserCredential? user = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      await signOut();
+      return firebaseToUserModel(user.user!);
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      switch (e.code) {
+        case 'email-already-in-use':
+          return 'Email ini sudah digunakan.';
+        case 'weak-password':
+          return 'Password terlalu lemah.';
+        case 'invalid-email':
+          return 'Email yang anda masukkan tidak valid.';
+        default:
+          return 'Terjadi kesalahan saat mendaftar.';
+      }
     }
   }
 

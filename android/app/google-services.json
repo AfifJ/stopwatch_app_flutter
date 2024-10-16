@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:101972822228:android:a1fdd9c44ab1ffe949d341",
         "android_client_info": {
-          "package_name": "com.pam.stopwatch_a"
+          "package_name": "com.example.stopwatch_a"
         }
       },
       "oauth_client": [],
@@ -28,7 +28,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:101972822228:android:3fcf8039662aec9f49d341",
         "android_client_info": {
-          "package_name": "com.pam.stopwatch_app"
+          "package_name": "com.example.stopwatch_app"
         }
       },
       "oauth_client": [],
