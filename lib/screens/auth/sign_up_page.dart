@@ -284,8 +284,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Already have an account?",
-                          style: TextStyle(color: Colors.black),
+                          "Sudah punya akun?",
                         ),
                         TextButton(
                           style: ButtonStyle(

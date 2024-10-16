@@ -1,46 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:stopwatch_app/services/auth.dart';
+import 'package:stopwatch_app/shared/constant.dart';
 
 class HelpPage extends StatelessWidget {
   final AuthService _auth = AuthService();
 
-  final List<Map<String, String>> helpItems = [
-    {
-      'title': '1. Daftar Dulu, Bosku!',
-      'description':
-          'Ini langkah pertama yang super penting. Tanpa daftar, kamu hanya bisa tatap-tatapan sama aplikasi ini. Jadi, tekan tombol "Daftar" kayak kamu lagi ngejar diskon! 🏃‍♂️💨 Isi data diri, pastikan email dan password-nya mantul (mantap betul), terus klik "Submit". Udah deh, kamu resmi jadi anggota VIP kita! 😎',
-    },
-    {
-      'title': '2. Login untuk Akses VIP 🔑',
-      'description':
-          'Setelah daftar, langsung login dong. Masukkan email dan password yang tadi kamu buat. Jangan salah masukin password, nanti dibilang "wrong password" trus kesel sendiri! Kalau sudah, kamu bakal langsung diangkat jadi raja, eh maksudnya, bisa pakai fitur-fitur keren di aplikasi ini!',
-    },
-    {
-      'title': '3. Pilih Menu Sesuka Hati 🍽️',
-      'description':
-          'Begitu login, kamu bakal disambut dengan menu-menu yang bikin hidup lebih asyik. Nih, pilihannya:\n- Daftar Anggota: Pengen tahu siapa aja teman-teman sepengguna aplikasi? Klik menu ini, terus cek daftar anggota. Siapa tahu ketemu gebetan... atau utang yang belum lunas. 😏\n- Stopwatch: Buat kamu yang suka tantangan hidup atau cuma pengen ukur waktu buat mie instan, pakai stopwatch ini. Tekan tombol start, terus nunggu deh. Jangan kelamaan nyentuh tombolnya, nanti kaya nunggu chat doi yang gak balas-balas. ⏱️\n- Rekomendasi Situs: Lagi bosen atau butuh pencerahan dari alam internet? Tenang, kita punya daftar situs rekomendasi yang super keren! Klik, dan langsung terbang ke dunia baru. Jangan kaget kalau tiba-tiba lupa waktu ya, seru soalnya! 😜\n- Favorite: Nah, kalau nemu sesuatu yang menurut kamu keren, klik tombol "favorite"! Nanti semua yang kamu simpan bakal nangkring di sini, jadi gampang kalo mau ngelirik lagi pas kangen~ ❤️',
-    },
-    {
-      'title': '4. Enjoy dan Selamat Bergembira! 🎉',
-      'description':
-          'Sudah selesai? Hah? Cepet amat. Tenang, pakai aplikasi ini gampang banget kok. Kalau bingung, coba tanya sama diri sendiri, "Kenapa bingung ya?" Kalau masih bingung juga, ya coba tanya lagi (atau tanya admin).',
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final theme = Theme.of(context);
+
     return Scaffold(
+      backgroundColor: isDarkMode ? Colors.black : Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context),
+          _buildHeader(context, isDarkMode),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.all(8.0),
               itemCount: helpItems.length,
               itemBuilder: (context, index) {
                 final item = helpItems[index];
-                return _buildHelpCard(item, index);
+                return _buildHelpCard(item, isDarkMode);
               },
             ),
           ),
@@ -49,7 +32,7 @@ class HelpPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, bool isDarkMode) {
     return Padding(
       padding: EdgeInsets.all(20),
       child: Row(
@@ -62,6 +45,7 @@ class HelpPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color: isDarkMode ? Colors.white : Colors.black,
                 ),
               ),
               Text(
@@ -77,7 +61,7 @@ class HelpPage extends StatelessWidget {
           Spacer(),
           ElevatedButton(
             onPressed: () {
-              _showLogoutConfirmationDialog(context);
+              _showLogoutConfirmationDialog(context, isDarkMode);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
@@ -91,8 +75,9 @@ class HelpPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHelpCard(Map<String, String> item, int index) {
+  Widget _buildHelpCard(Map<String, String> item, bool isDarkMode) {
     return Card(
+      color: isDarkMode ? Colors.grey[800] : Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -110,7 +95,7 @@ class HelpPage extends StatelessWidget {
             Text(
               item['description']!,
               style: TextStyle(
-                color: Colors.white,
+                color: isDarkMode ? Colors.white : Colors.black,
               ),
             ),
           ],
@@ -119,19 +104,30 @@ class HelpPage extends StatelessWidget {
     );
   }
 
-  _showLogoutConfirmationDialog(BuildContext context) {
+  _showLogoutConfirmationDialog(BuildContext context, bool isDarkMode) {
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Confirmation'),
-          content: Text('Are you sure you want to logout?'),
+          backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
+          title: Text(
+            'Confirmation',
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+          ),
+          content: Text(
+            'Are you sure you want to logout?',
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: Text('Batal'),
+              child: Text(
+                'Batal',
+                style:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+              ),
             ),
             TextButton(
               style: TextButton.styleFrom(
@@ -141,7 +137,10 @@ class HelpPage extends StatelessWidget {
                 Navigator.of(context).pop(true);
                 await _auth.signOut();
               },
-              child: Text('Logout'),
+              child: Text(
+                'Logout',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         );

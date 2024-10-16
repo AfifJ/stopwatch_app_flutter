@@ -53,6 +53,19 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
                 width: 50,
                 height: 50,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                      ),
+                    ),
+                  );
+                },
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(Icons.error, color: Colors.red, size: 50);
                 },

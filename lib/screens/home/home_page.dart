@@ -85,9 +85,12 @@ class _HomeState extends State<Home> {
           ],
         ),
         Image(
-          image: AssetImage('images/logo.png'),
+          image: AssetImage('assets/images/logo.png'),
           height: 100,
           color: Colors.orange,
+          errorBuilder: (context, error, stackTrace) {
+            return Text(error.toString());
+          },
         ),
       ],
     );

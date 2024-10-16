@@ -197,7 +197,6 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         const Text(
                           "Tidak punya akun?",
-                          style: TextStyle(color: Colors.black),
                         ),
                         TextButton(
                           style: ButtonStyle(
