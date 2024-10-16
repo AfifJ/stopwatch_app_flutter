@@ -19,6 +19,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter test',
       theme: ThemeData(
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(fontSize: 16),
+          bodyMedium: TextStyle(fontSize: 16),
+          bodySmall: TextStyle(fontSize: 16),
+          displayLarge: TextStyle(fontSize: 16),
+          displayMedium: TextStyle(fontSize: 16),
+          displaySmall: TextStyle(fontSize: 16),
+          labelLarge: TextStyle(fontSize: 16),
+          labelMedium: TextStyle(fontSize: 16),
+          labelSmall: TextStyle(fontSize: 16),
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
