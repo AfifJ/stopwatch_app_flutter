@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:stopwatch_app/shared/themes.dart';
 import 'package:stopwatch_app/screens/auth/sign_up_page.dart';
 import 'package:stopwatch_app/services/auth.dart';
 import 'package:stopwatch_app/models/user_model.dart';
+import 'package:stopwatch_app/shared/constant.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class _SignInPageState extends State<SignInPage> {
         _errorMessage = '';
         _isLoading = true;
       });
-      debugPrint("Signing in");
+      // debugPrint("Signing in");
       try {
         final result = await _auth.signIn(_email, _password);
         if (result is String) {
@@ -56,11 +58,19 @@ class _SignInPageState extends State<SignInPage> {
           key: _formKey,
           child: Column(
             children: [
+              SizedBox(
+                height: 96,
+              ),
+              Image(
+                  image: NetworkImage(
+                      "https://images.blush.design/694a573ec09c9ed2ea069f5b13d9749e?w=920&auto=compress&cs=srgb"),
+                  width: MediaQuery.of(context).size.width * 0.4),
+              SizedBox(
+                height: 32,
+              ),
               Container(
-                padding: const EdgeInsets.only(
-                    top: 150, left: 16, right: 16, bottom: 20),
-                color: Colors.grey[900],
-                child: const Align(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,16 +78,21 @@ class _SignInPageState extends State<SignInPage> {
                       Text(
                         "Login",
                         style: TextStyle(
-                          fontSize: 36,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
                         ),
+                      ),
+                      SizedBox(
+                        height: 8,
                       ),
                       Text(
                         "Silahkan login dengan akun kamu",
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Theme.of(context).brightness ==
+                                  Brightness.light
+                              ? Colors.black.withOpacity(AppTheme.bodyOpacity)
+                              : Colors.white.withOpacity(AppTheme.bodyOpacity),
                         ),
                       )
                     ],
@@ -90,17 +105,8 @@ class _SignInPageState extends State<SignInPage> {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                        ),
-                        floatingLabelStyle: const TextStyle(fontSize: 20),
-                      ),
+                      decoration: textInputDecoration(context)
+                          .copyWith(labelText: "Email"),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         return value!.isEmpty ? "Silahkan isi email" : null;
@@ -111,28 +117,18 @@ class _SignInPageState extends State<SignInPage> {
                         });
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 32),
                     TextFormField(
-                      obscureText: true,
-                      validator: (value) =>
-                          value!.isEmpty ? "Silahkan isi password" : null,
-                      onChanged: (value) {
-                        setState(() {
-                          _password = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        labelText: "Password",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                        ),
-                        floatingLabelStyle: const TextStyle(fontSize: 20),
-                      ),
-                    ),
+                        obscureText: true,
+                        validator: (value) =>
+                            value!.isEmpty ? "Silahkan isi password" : null,
+                        onChanged: (value) {
+                          setState(() {
+                            _password = value;
+                          });
+                        },
+                        decoration: textInputDecoration(context)
+                            .copyWith(labelText: "Password")),
                     if (_errorMessage.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -159,9 +155,9 @@ class _SignInPageState extends State<SignInPage> {
                         disabledTextColor: Colors.grey[800],
                         elevation: 0,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(AppTheme.rounded),
                         ),
-                        color: Colors.yellow[600],
+                        color: AppTheme.primary,
                         onPressed: _isLoading ? null : _login,
                         child: Padding(
                           padding: const EdgeInsets.all(16),
@@ -182,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
                                 "Login",
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -195,24 +191,23 @@ class _SignInPageState extends State<SignInPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Tidak punya akun?",
+                          style: TextStyle(
+                            color: Theme.of(context).brightness ==
+                                    Brightness.light
+                                ? Colors.black.withOpacity(AppTheme.bodyOpacity)
+                                : Colors.white
+                                    .withOpacity(AppTheme.bodyOpacity),
+                          ),
                         ),
                         TextButton(
                           style: ButtonStyle(
+                            padding: WidgetStatePropertyAll(
+                                EdgeInsets.symmetric(
+                                    horizontal: 4, vertical: 0)),
                             overlayColor:
                                 WidgetStatePropertyAll(Colors.transparent),
-                            foregroundColor:
-                                WidgetStateProperty.resolveWith<Color>(
-                              (Set<WidgetState> states) {
-                                if (states.contains(WidgetState.hovered) ||
-                                    states.contains(WidgetState.pressed)) {
-                                  return Colors.black.withOpacity(
-                                      0.7); // Darker color on hover or press
-                                }
-                                return Colors.black; // Default color
-                              },
-                            ),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -221,9 +216,12 @@ class _SignInPageState extends State<SignInPage> {
                                   builder: (context) => SignUpPage()),
                             );
                           },
-                          child: Text(
+                          child: const Text(
                             "Register",
-                            style: TextStyle(color: Colors.orange[800]),
+                            style: TextStyle(
+                              color: AppTheme.primary,
+                              fontWeight: FontWeight.w900,
+                            ),
                           ),
                         )
                       ],

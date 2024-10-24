@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stopwatch_app/screens/auth/sign_in_page.dart';
 import 'package:stopwatch_app/services/auth.dart';
 import 'package:stopwatch_app/models/user_model.dart';
+import 'package:stopwatch_app/shared/constant.dart';
+import 'package:stopwatch_app/shared/themes.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -114,11 +116,19 @@ class _SignUpPageState extends State<SignUpPage> {
           key: _formKey,
           child: Column(
             children: [
+              SizedBox(
+                height: 96,
+              ),
+              Image(
+                  image: NetworkImage(
+                      "https://images.blush.design/694a573ec09c9ed2ea069f5b13d9749e?w=920&auto=compress&cs=srgb"),
+                  width: MediaQuery.of(context).size.width * 0.4),
+              SizedBox(
+                height: 32,
+              ),
               Container(
-                padding: const EdgeInsets.only(
-                    top: 150, left: 16, right: 16, bottom: 20),
-                color: Colors.grey[900],
-                child: const Align(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,17 +136,18 @@ class _SignUpPageState extends State<SignUpPage> {
                       Text(
                         "Register",
                         style: TextStyle(
-                          fontSize: 36,
-                          color: Colors.white,
+                          fontSize: 32,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      SizedBox(
+                        height: 8,
                       ),
                       Text(
                         "Buat akun baru",
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
+                            fontSize: 16,
+                            color: AppTheme.mutedTextColor(context)),
                       )
                     ],
                   ),
@@ -148,17 +159,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                        ),
-                        floatingLabelStyle: const TextStyle(fontSize: 20),
-                      ),
+                      decoration: textInputDecoration(context)
+                          .copyWith(labelText: "Email"),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         return value!.isEmpty
@@ -171,7 +173,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         });
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 32),
                     TextFormField(
                       obscureText: true,
                       validator: (value) => value!.isEmpty
@@ -184,19 +186,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           _password = value;
                         });
                       },
-                      decoration: InputDecoration(
+                      decoration: textInputDecoration(context).copyWith(
                         labelText: "Password",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                        ),
-                        floatingLabelStyle: const TextStyle(fontSize: 20),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 32),
                     TextFormField(
                       obscureText: true,
                       validator: (value) => value!.isEmpty
@@ -209,16 +203,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           _confirmPassword = value;
                         });
                       },
-                      decoration: InputDecoration(
+                      decoration: textInputDecoration(context).copyWith(
                         labelText: "Konfirmasi Password",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                        ),
-                        floatingLabelStyle: const TextStyle(fontSize: 20),
                       ),
                     ),
                     if (_errorMessage.isNotEmpty)
@@ -249,7 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        color: Colors.yellow[600],
+                        color: AppTheme.primary,
                         onPressed: _isLoading ? null : _signUp,
                         child: Padding(
                           padding: const EdgeInsets.all(16),
@@ -270,7 +256,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 "Sign Up",
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -279,15 +265,20 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 32),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Sudah punya akun?",
+                          style: TextStyle(
+                              color: AppTheme.mutedTextColor(context)),
                         ),
                         TextButton(
                           style: ButtonStyle(
+                            padding: WidgetStatePropertyAll(
+                                EdgeInsets.symmetric(
+                                    horizontal: 4, vertical: 0)),
                             overlayColor:
                                 WidgetStateProperty.all(Colors.transparent),
                             foregroundColor:
@@ -310,7 +301,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                           child: Text(
                             "Sign In",
-                            style: TextStyle(color: Colors.orange[800]),
+                            style: TextStyle(
+                                color: AppTheme.primary,
+                                fontWeight: FontWeight.bold),
                           ),
                         )
                       ],

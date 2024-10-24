@@ -5,9 +5,10 @@ import 'package:stopwatch_app/screens/help/help_page.dart';
 import 'package:stopwatch_app/screens/rekomendasi/rekomendasi_page.dart';
 import 'package:stopwatch_app/screens/stopwatch/stopwatch_page.dart';
 import 'package:stopwatch_app/services/auth.dart';
+import 'package:stopwatch_app/shared/themes.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -17,14 +18,38 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final List<Map<String, dynamic>> listMenu = [
-    {'title': 'Daftar anggota', 'menu': AnggotaPage(), 'icon': Icons.group},
-    {'title': 'Stopwatch', 'menu': StopwatchPage(), 'icon': Icons.timer},
     {
-      'title': 'Rekomendasi situs',
-      'menu': RekomendasiPage(),
-      'icon': Icons.recommend
+      'title': 'Daftar Anggota',
+      'menu': const AnggotaPage(),
+      'icon': Icons.group,
+      'description': 'Lihat daftar anggota yang terlibat dalam aplikasi ini',
+      'color': Colors.blue,
+      'gradient': [Colors.blue.shade700, Colors.blue.shade900]
     },
-    {'title': 'Favorit', 'menu': FavoritePage(), 'icon': Icons.favorite}
+    {
+      'title': 'Stopwatch',
+      'menu': const StopwatchPage(),
+      'icon': Icons.timer,
+      'description': 'Gunakan stopwatch untuk mengukur waktu dengan akurat',
+      'color': Colors.orange,
+      'gradient': [Colors.orange.shade700, Colors.orange.shade900]
+    },
+    {
+      'title': 'Rekomendasi Situs',
+      'menu': const RekomendasiPage(),
+      'icon': Icons.recommend,
+      'description': 'Lihat rekomendasi situs yang bermanfaat dan terpercaya',
+      'color': Colors.green,
+      'gradient': [Colors.green.shade700, Colors.green.shade900]
+    },
+    {
+      'title': 'Favorit',
+      'menu': const FavoritePage(),
+      'icon': Icons.favorite,
+      'description': 'Lihat halaman favorit yang telah Anda simpan sebelumnya',
+      'color': Colors.red,
+      'gradient': [Colors.red.shade700, Colors.red.shade900]
+    }
   ];
 
   @override
@@ -50,88 +75,134 @@ class _HomeState extends State<Home> {
   Widget _buildHomePage(user) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildHeader(user),
-            SizedBox(height: 20),
-            Expanded(child: _buildMenuList()),
-          ],
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                _buildGreetingCard(user),
+                const SizedBox(height: 30),
+                Expanded(child: _buildMenuList()),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildHeader(user) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Selamat datang!",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.orange,
-              ),
+  Widget _buildGreetingCard(user) {
+    // final emailUsername = user.email.toString().split('@')[0];
+    // final username =
+    //     emailUsername[0].toUpperCase() + emailUsername.substring(1);
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppTheme.rounded),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Mulai Aktivitas Anda, ${user.email}.",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "Pilih menu di bawah untuk memulai",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Logged in as ${user.email}",
-              style: TextStyle(color: Colors.white),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppTheme.rounded),
             ),
-          ],
-        ),
-        Image(
-          image: AssetImage('assets/images/logo.png'),
-          height: 100,
-          color: Colors.orange,
-          errorBuilder: (context, error, stackTrace) {
-            return Text(error.toString());
-          },
-        ),
-      ],
+            child: Image(
+              image: const AssetImage('assets/images/logo.png'),
+              height: 60,
+              color: AppTheme.primary,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error_outline, size: 40);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildMenuList() {
     return ListView.builder(
-      padding: EdgeInsets.all(20),
+      physics: const BouncingScrollPhysics(),
       itemCount: listMenu.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Card(
-            color: Colors.orange,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: MaterialButton(
-              textColor: Colors.white,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return listMenu[index]['menu'] as Widget;
-                }));
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      listMenu[index]['icon'] as IconData,
-                      color: Colors.white,
-                      size: 40,
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      listMenu[index]['title'] as String,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: MaterialButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => listMenu[index]['menu'],
                 ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: listMenu[index]['gradient'],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(AppTheme.rounded),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          listMenu[index]['title'],
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          listMenu[index]['description'],
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Icon(
+                    listMenu[index]['icon'],
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ],
               ),
             ),
           ),
@@ -140,15 +211,24 @@ class _HomeState extends State<Home> {
     );
   }
 
-  NavigationBar _buildBottomNavigationBar() {
-    return NavigationBar(
-      destinations: [
-        NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-        NavigationDestination(icon: Icon(Icons.help), label: "Help"),
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      currentIndex: _selectedIndex,
+      onTap: _onTappedItem,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_rounded),
+          label: "Beranda",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.help_rounded),
+          label: "Bantuan",
+        ),
       ],
-      onDestinationSelected: _onTappedItem,
-      selectedIndex: _selectedIndex,
-      indicatorColor: Colors.orange,
+      selectedItemColor: Colors.blueAccent,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.grey[900]
+          : Colors.white,
     );
   }
 
