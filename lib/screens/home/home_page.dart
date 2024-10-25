@@ -93,9 +93,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildGreetingCard(user) {
-    // final emailUsername = user.email.toString().split('@')[0];
-    // final username =
-    //     emailUsername[0].toUpperCase() + emailUsername.substring(1);
+    final emailUsername = user.email.toString().split('@')[0];
+    final username =
+        emailUsername[0].toUpperCase() + emailUsername.substring(1);
 
     return Container(
       decoration: BoxDecoration(
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Mulai Aktivitas Anda, ${user.email}.",
+                  "Mulai Aktivitas Anda, ${username}.",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,

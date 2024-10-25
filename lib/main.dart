@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       title: 'Aplikasi Stopwatch',
-      theme: Theme.of(context).copyWith(
+      theme: ThemeData().copyWith(
         brightness: Brightness.light,
         appBarTheme: const AppBarTheme(elevation: 0),
         textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),

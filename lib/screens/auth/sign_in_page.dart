@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopwatch_app/screens/home/home_page.dart';
 import 'package:stopwatch_app/shared/themes.dart';
 import 'package:stopwatch_app/screens/auth/sign_up_page.dart';
 import 'package:stopwatch_app/services/auth.dart';
@@ -35,7 +36,9 @@ class _SignInPageState extends State<SignInPage> {
             _errorMessage = result;
           });
         } else if (result is UserModel) {
-          // Navigate to the next screen or update the UI accordingly
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Home(); // Replace HomePage with the correct widget
+          }));
           debugPrint("Login successful: ${result.email}");
         }
       } catch (e) {

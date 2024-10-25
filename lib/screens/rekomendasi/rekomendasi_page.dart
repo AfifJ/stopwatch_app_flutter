@@ -231,9 +231,12 @@ class _RekomendasiPageState extends State<RekomendasiPage> {
 
   Future<void> _openInBrowser(String url) async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        throw Exception('Could not launch $url');
+      }
+    } catch (e) {
+      print('Error launching URL: $e');
       throw 'Could not launch $url';
     }
   }
