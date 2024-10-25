@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopwatch_app/shared/themes.dart';
 
 class AnggotaPage extends StatelessWidget {
   const AnggotaPage({super.key});
@@ -12,14 +13,14 @@ class AnggotaPage extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             _buildAnggotaCard(
               context,
               'https://akcdn.detik.net.id/visual/2024/07/16/spongebob-squarepants_169.png?w=400&q=90',
               'Afif Jamhari',
               '124220018',
-              'taken',
+              'Taken',
               'Turu sambil Ngoding',
             ),
             _buildAnggotaCard(
@@ -39,7 +40,7 @@ class AnggotaPage extends StatelessWidget {
   Widget _buildAnggotaCard(BuildContext context, String imageUrl, String name,
       String nim, String status, String hobby) {
     return Card(
-      color: Colors.white,
+      // color: Colors.,
       child: Row(
         children: [
           Container(
@@ -65,23 +66,19 @@ class AnggotaPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
-                      color: Colors.yellow[700],
                     ),
                   ),
                   SizedBox(height: 10),
                   Text(
                     'NIM\t\t\t\t\t: $nim',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                   SizedBox(height: 5),
                   Text(
                     'Status\t: $status',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                   SizedBox(height: 5),
                   Text(
                     'Hobby\t: $hobby',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ],
               ),

@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stopwatch_app/firebase_options.dart';
 import 'package:stopwatch_app/screens/wrapper.dart';
+import 'package:stopwatch_app/shared/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,25 +20,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter test',
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.black,
-            elevation: 0,
-            iconTheme: IconThemeData(color: Colors.white)),
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 16),
-          bodyMedium: TextStyle(fontSize: 16),
-          bodySmall: TextStyle(fontSize: 16),
-          displayLarge: TextStyle(fontSize: 16),
-          displayMedium: TextStyle(fontSize: 16),
-          displaySmall: TextStyle(fontSize: 16),
-          labelLarge: TextStyle(fontSize: 16),
-          labelMedium: TextStyle(fontSize: 16),
-          labelSmall: TextStyle(fontSize: 16),
-        ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      title: 'Aplikasi Stopwatch',
+      theme: ThemeData().copyWith(
+        brightness: Brightness.light,
+        appBarTheme: const AppBarTheme(elevation: 0),
+        textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.primary),
       ),
       home: Wrapper(),
     );

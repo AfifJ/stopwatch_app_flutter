@@ -70,22 +70,23 @@ class _StopwatchPageState extends State<StopwatchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.grey[900],
       appBar: AppBar(
         title: const Text("Stopwatch"),
-        backgroundColor: Colors.grey[850],
+        backgroundColor: theme.colorScheme.surface,
+        foregroundColor: theme.colorScheme.onSurface,
       ),
+      backgroundColor: theme.colorScheme.background,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               _time,
-              style: const TextStyle(
-                fontSize: 72,
+              style: theme.textTheme.displayLarge?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
             ),
             const SizedBox(height: 40),
@@ -93,16 +94,18 @@ class _StopwatchPageState extends State<StopwatchPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildButton(
-                    onPressed: _isRunning ? _stopStopwatch : _startStopwatch,
-                    color: _isRunning ? Colors.red : Colors.yellow[600]!,
-                    text: _isRunning ? 'STOP' : 'START',
-                    textColor: Colors.black),
+                  onPressed: _isRunning ? _stopStopwatch : _startStopwatch,
+                  color: _isRunning
+                      ? theme.colorScheme.error
+                      : theme.colorScheme.primary,
+                  text: _isRunning ? 'STOP' : 'START',
+                ),
                 const SizedBox(width: 20),
                 _buildButton(
-                    onPressed: _resetStopwatch,
-                    color: Colors.grey[700]!,
-                    text: 'RESET',
-                    textColor: Colors.white),
+                  onPressed: _resetStopwatch,
+                  color: theme.colorScheme.secondary,
+                  text: 'RESET',
+                ),
               ],
             ),
           ],
@@ -114,7 +117,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
   Widget _buildButton({
     required VoidCallback onPressed,
     required Color color,
-    Color? textColor,
     required String text,
   }) {
     return ElevatedButton(
@@ -128,7 +130,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
       ),
       child: Text(
         text,
-        style: TextStyle(fontSize: 20, color: textColor),
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
       ),
     );
   }

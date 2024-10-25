@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:stopwatch_app/shared/themes.dart';
+
 final List<Map<String, dynamic>> recomendationLinks = [
   {
     'id': 1,
@@ -70,23 +73,76 @@ final List<Map<String, dynamic>> recomendationLinks = [
 
 final List<Map<String, String>> helpItems = [
   {
-    'title': '1. Daftar Dulu, Bosku!',
+    'title': '1. Daftar Dulu!',
     'description':
-        'Ini langkah pertama yang super penting. Tanpa daftar, kamu hanya bisa tatap-tatapan sama aplikasi ini. Jadi, tekan tombol "Daftar" kayak kamu lagi ngejar diskon! 🏃‍♂️💨 Isi data diri, pastikan email dan password-nya mantul (mantap betul), terus klik "Submit". Udah deh, kamu resmi jadi anggota VIP kita! 😎',
+        'Langkah pertama, tekan "Daftar", isi data diri, dan klik "Submit". Selamat, kamu anggota VIP! 😎',
   },
   {
-    'title': '2. Login untuk Akses VIP 🔑',
+    'title': '2. Login 🔑',
     'description':
-        'Setelah daftar, langsung login dong. Masukkan email dan password yang tadi kamu buat. Jangan salah masukin password, nanti dibilang "wrong password" trus kesel sendiri! Kalau sudah, kamu bakal langsung diangkat jadi raja, eh maksudnya, bisa pakai fitur-fitur keren di aplikasi ini!',
+        'Masukkan email dan password yang tadi dibuat. Jangan salah, nanti kesel sendiri! Akses fitur keren langsung!',
   },
   {
-    'title': '3. Pilih Menu Sesuka Hati 🍽️',
+    'title': '3. Pilih Menu 🍽️',
     'description':
-        'Begitu login, kamu bakal disambut dengan menu-menu yang bikin hidup lebih asyik. Nih, pilihannya:\n- Daftar Anggota: Pengen tahu siapa aja teman-teman sepengguna aplikasi? Klik menu ini, terus cek daftar anggota. Siapa tahu ketemu gebetan... atau utang yang belum lunas. 😏\n- Stopwatch: Buat kamu yang suka tantangan hidup atau cuma pengen ukur waktu buat mie instan, pakai stopwatch ini. Tekan tombol start, terus nunggu deh. Jangan kelamaan nyentuh tombolnya, nanti kaya nunggu chat doi yang gak balas-balas. ⏱️\n- Rekomendasi Situs: Lagi bosen atau butuh pencerahan dari alam internet? Tenang, kita punya daftar situs rekomendasi yang super keren! Klik, dan langsung terbang ke dunia baru. Jangan kaget kalau tiba-tiba lupa waktu ya, seru soalnya! 😜\n- Favorite: Nah, kalau nemu sesuatu yang menurut kamu keren, klik tombol "favorite"! Nanti semua yang kamu simpan bakal nangkring di sini, jadi gampang kalo mau ngelirik lagi pas kangen~ ❤️',
+        'Setelah login, pilih menu:\n- Daftar Anggota: Cek teman-teman pengguna.\n- Stopwatch: Ukur waktu, jangan kelamaan.\n- Rekomendasi Situs: Jelajahi situs keren.\n- Favorite: Simpan yang kamu suka. ❤️',
   },
   {
-    'title': '4. Enjoy dan Selamat Bergembira! 🎉',
-    'description':
-        'Sudah selesai? Hah? Cepet amat. Tenang, pakai aplikasi ini gampang banget kok. Kalau bingung, coba tanya sama diri sendiri, "Kenapa bingung ya?" Kalau masih bingung juga, ya coba tanya lagi (atau tanya admin).',
+    'title': '4. Enjoy! 🎉',
+    'description': 'Sudah selesai? Gampang kan? Kalau bingung, tanya admin.',
   },
 ];
+
+/*  {
+    'title': '1. Daftar Dulu!',
+    'description':
+      'Langkah pertama, tekan "Daftar", isi data diri, dan klik "Submit". Selamat, kamu anggota VIP! 😎',
+    },
+    {
+    'title': '2. Login 🔑',
+    'description':
+      'Masukkan email dan password yang tadi dibuat. Jangan salah, nanti kesel sendiri! Akses fitur keren langsung!',
+    },
+    {
+    'title': '3. Pilih Menu 🍽️',
+    'description':
+      'Setelah login, pilih menu:\n- Daftar Anggota: Cek teman-teman pengguna.\n- Stopwatch: Ukur waktu, jangan kelamaan.\n- Rekomendasi Situs: Jelajahi situs keren.\n- Favorite: Simpan yang kamu suka. ❤️',
+    },
+    {
+    'title': '4. Enjoy! 🎉',
+    'description':
+      'Sudah selesai? Gampang kan? Kalau bingung, tanya admin.',
+    }, */
+
+InputDecoration textInputDecoration(BuildContext context) => InputDecoration(
+      hintStyle: TextStyle(
+        color: Colors.black.withOpacity(0.5),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppTheme.rounded),
+        borderSide: BorderSide(color: AppTheme.primary),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppTheme.rounded),
+        borderSide: BorderSide(color: AppTheme.danger),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppTheme.rounded),
+        borderSide: BorderSide(color: AppTheme.danger),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppTheme.rounded),
+        borderSide: BorderSide.none,
+      ),
+      filled: true,
+      fillColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.grey[800]
+          : const Color.fromARGB(244, 235, 235, 235),
+      floatingLabelStyle: TextStyle(
+          fontSize: 20,
+          height: 1.5,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(244, 224, 224, 224)
+              : Colors.grey[900],
+          fontWeight: FontWeight.bold),
+    );
